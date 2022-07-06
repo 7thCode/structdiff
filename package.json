@@ -1,0 +1,31 @@
+{
+  "name": "structdiff",
+  "version": "0.0.1",
+  "description": "testing object structure difference.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:7thCode/structdiff.git"
+  },
+  "keywords": [
+    "object",
+    "structure",
+    "difference"
+  ],
+  "author": "7thCode",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^28.1.4",
+    "@types/node": "^18.0.0",
+    "jest": "^28.1.2",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  }
+}

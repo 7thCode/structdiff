@@ -1,0 +1,5 @@
+*.svg
+/node_modules
+/src
+tsconfig.json
+.idea
