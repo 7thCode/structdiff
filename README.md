@@ -1,6 +1,6 @@
 # structdiff
 
-# Detect differences in the structure of objects.
+### Detect differences in the structure of objects.
 
 ```js
 
@@ -47,7 +47,7 @@ const result:boolean =  detector.isSame(object1, object2);
 comp_type: ignored.
 ```
 
-## Detects differences in structure and value "types".
+#### Detects differences in structure and value "types".
 
 ```js
 console.log(structdiff.isSame({a: 1}, {a: 2}, 0));
@@ -59,7 +59,7 @@ console.log(structdiff.isSame({a: 1}, {b: 2}, 0));
 > false
 ```
 
-## Detects differences in structure and values.
+#### Detects differences in structure and values.
 
 ```js
 console.log(structdiff.isSame({a: 1}, {a: 1}, 1));
@@ -71,7 +71,7 @@ console.log(structdiff.isSame({a: 1}, {a: 2}, 1));
 > false
 ```
 
-# Only structural differences are detected.
+#### Only structural differences are detected.
 
 ```js
 console.log(structdiff.isSame({a: 1}, {a: "2"}, 2));
@@ -83,7 +83,7 @@ console.log(structdiff.isSame({a: 1}, {b: "2"}, 2));
 > false
 ```
 
-# The difference in the arrangement order is the difference in the structure.
+#### The difference in the arrangement order is the difference in the structure.
 
 ```js
 console.log(structdiff.isSame([{a: 1}, {b: 1}], [{a: 1}, {b: 1}]));
