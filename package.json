@@ -1,9 +1,10 @@
 {
   "name": "structdiff",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "testing object structure difference.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "module": "esm/index.js",
   "scripts": {
     "test": "jest",
     "build": "tsc",

@@ -136,10 +136,9 @@ const structure_difference_2 = {
     }
 };
 
-class TestHandler extends structdiff.BaseHandler {
+class TestHandler {
 
     constructor() {
-        super();
     }
 
     public detect(s: any, d: any): boolean {

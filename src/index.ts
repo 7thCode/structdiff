@@ -2,23 +2,8 @@
 
 const base: any = require("./base");
 
-abstract class BaseHandler {
 
-    constructor() {
-    }
-
-    public abstract detect(s: any, d: any): boolean;
-}
-
-class DetectHandler extends BaseHandler {
-
-    /**
-     *
-     * @remarks
-     */
-    constructor() {
-        super();
-    }
+class DetectHandler {
 
     /**
      * Symbol Handler
@@ -85,4 +70,4 @@ class StrDiffDetector {
 
 }
 
-module.exports = {StrDiffDetector,BaseHandler,DetectHandler};
+module.exports = {StrDiffDetector,DetectHandler};
