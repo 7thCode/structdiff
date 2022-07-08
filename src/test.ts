@@ -141,13 +141,21 @@ class TestHandler {
     constructor() {
     }
 
-    public detect(s: any, d: any): boolean {
+    public compare(s: any, d: any): boolean {
         console.log(s + " " + d);
         return ((typeof s) === (typeof d));
     }
 
 }
 
+/*
+
+comp_type:
+    0: default. 構造と値の「タイプ」の違いを検出します。
+    1: 構造と値の違いを検出します。
+    2: 構造の違いのみが検出されます。
+
+*/
 
 const detector = new structdiff.StrDiffDetector();
 
@@ -214,6 +222,22 @@ test('array.', () => {
     expect(detector.isSame([{a: 1}, {b: 1}], [{a: 1}, {b: 1}])).toBe(true);
     expect(detector.isSame([{a: 1}, {b: 1}], [{b: 1}, {a: 1}])).toBe(false);
 });
+
+
+const array1 = [{a: "1", b: 1}, {a: 1, b: 1}];
+
+const array2 = [1, 2];
+
+test('array.', () => {
+    expect(detector.isSame(array1[0], array1[1])).toBe(false);
+    expect(detector.isSame(array1[0], array1[1], 1)).toBe(false);
+    expect(detector.isSame(array1[0], array1[1], 2)).toBe(true);
+
+    expect(detector.isSame(array2[0], array2[1])).toBe(true)　// typeof 1 === typeof 2
+    expect(detector.isSame(array2[0], array2[1], 1)).toBe(false);
+    expect(detector.isSame(array2[0], array2[1], 2)).toBe(true);
+});
+
 
 const detector_with_handler = new structdiff.StrDiffDetector(new TestHandler());
 

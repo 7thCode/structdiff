@@ -16,7 +16,7 @@ const base: any = require("./base");
      */
 class DetectHandler {
 
-    public detect(s: any, d: any): boolean {
+    public compare(s: any, d: any): boolean {
         return (s === d);
     }
 
@@ -33,8 +33,8 @@ class StrDiffDetector {
     private isSameValue(s: any, d: any, comp_type: number): boolean {
         let result = true;
         if (this.handler) {
-            if (this.handler.detect) {
-                result = this.handler.detect(s, d);
+            if (this.handler.compare) {
+                result = this.handler.compare(s, d);
             }
         } else {
             switch (comp_type) {

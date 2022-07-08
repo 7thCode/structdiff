@@ -39,22 +39,21 @@ comp_type:
     0: default. Detects differences in structure and value "types".
     1: Detects differences in structure and values.
     2: Only structural differences are detected.
-    
-    The difference in the arrangement order is the difference in the structure.
-
 ```
 
 ```js
 
 const structdiff: any = require("structdiff");
 
+
+// compare(s: any, d: any): boolean
 class TestHandler {
 
 	constructor() {
 	}
 
 	// all "value" compare.
-	public detect(s: any, d: any): boolean {
+	public compare(s: any, d: any): boolean {
 		return ((typeof s) === (typeof d)); // custom diff. same is true.
 	}
 
