@@ -143,7 +143,7 @@ class TestHandler {
 
     public detect(s: any, d: any): boolean {
         console.log(s + " " + d);
-         return ((typeof s) === (typeof d));
+        return ((typeof s) === (typeof d));
     }
 
 }
@@ -153,6 +153,9 @@ const detector = new structdiff.StrDiffDetector();
 
 test('same structe and value', () => {
     expect(detector.isSame(_origin, copy)).toBe(true);
+    expect(detector.isSame(_origin.children.john, copy.children.john)).toBe(true);
+    expect(detector.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
+    expect(detector.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
     expect(detector.isSame(_origin, difference)).toBe(true);
     expect(detector.isSame(_origin, number_difference)).toBe(true);
     expect(detector.isSame(_origin, string_difference)).toBe(true);
@@ -165,61 +168,95 @@ test('detect value diff(number)', () => {
     expect(detector.isSame(_origin, boolean_difference, 1)).toBe(false);
 });
 
+
 test('struct diff()', () => {
     expect(detector.isSame(_origin, structure_difference_1)).toBe(true);
     expect(detector.isSame(_origin, structure_difference_2)).toBe(true);
 });
 
 test('same val and struct', () => {
-    expect(detector.isSame({a:1}, {a:1})).toBe(true);
+    expect(detector.isSame({a: 1}, {a: 1})).toBe(true);
 });
 
 test('same struct', () => {
-    expect(detector.isSame({a:1}, {a:2})).toBe(true);
+    expect(detector.isSame({a: 1}, {a: 2})).toBe(true);
 });
 
 test('diff struct', () => {
-    expect(detector.isSame({a:1}, {b:1})).toBe(false);
+    expect(detector.isSame({a: 1}, {b: 1})).toBe(false);
 });
 
-test('def type', () => {
-    expect(detector.isSame({a:1}, {a:"1"})).toBe(false);
+test('def type.', () => {
+    expect(detector.isSame({a: 1}, {a: "1"})).toBe(false);
+});
+
+test('extra attr.', () => {
+    expect(detector.isSame({a: 1, b: 1}, {a: 1})).toBe(false);
+    expect(detector.isSame({a: 1}, {a: 1, b: 1})).toBe(false);
 });
 
 test('detect struct and "value type".', () => {
-    expect(detector.isSame({a:1}, {a:2}, 0)).toBe(true);
-    expect(detector.isSame({a:1}, {b:2}, 0)).toBe(false);
+    expect(detector.isSame({a: 1}, {a: 2}, 0)).toBe(true);
+    expect(detector.isSame({a: 1}, {b: 2}, 0)).toBe(false);
 });
 
 test('detect struct and value.', () => {
-    expect(detector.isSame({a:1}, {a:1}, 1)).toBe(true);
-    expect(detector.isSame({a:1}, {a:2}, 1)).toBe(false);
+    expect(detector.isSame({a: 1}, {a: 1}, 1)).toBe(true);
+    expect(detector.isSame({a: 1}, {a: 2}, 1)).toBe(false);
 });
 
 test('detect only struct.', () => {
-    expect(detector.isSame({a:1}, {a:"2"}, 2)).toBe(true);
-    expect(detector.isSame({a:1}, {b:"2"}, 2)).toBe(false);
+    expect(detector.isSame({a: 1}, {a: "2"}, 2)).toBe(true);
+    expect(detector.isSame({a: 1}, {b: "2"}, 2)).toBe(false);
 });
 
 test('array.', () => {
-    expect(detector.isSame([{a:1}, {b:1}], [{a:1}, {b:1}] )).toBe(true);
-    expect(detector.isSame([{a:1}, {b:1}], [{b:1}, {a:1}] )).toBe(false);
+    expect(detector.isSame([{a: 1}, {b: 1}], [{a: 1}, {b: 1}])).toBe(true);
+    expect(detector.isSame([{a: 1}, {b: 1}], [{b: 1}, {a: 1}])).toBe(false);
 });
 
-const handler_detector = new structdiff.StrDiffDetector(new TestHandler());
+const detector_with_handler = new structdiff.StrDiffDetector(new TestHandler());
+
+test('same structe and value', () => {
+    expect(detector_with_handler.isSame(_origin, copy)).toBe(true);
+    expect(detector_with_handler.isSame(_origin.children.john, copy.children.john)).toBe(true);
+    expect(detector_with_handler.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
+    expect(detector_with_handler.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
+    expect(detector_with_handler.isSame(_origin, difference)).toBe(true);
+    expect(detector_with_handler.isSame(_origin, number_difference)).toBe(true);
+    expect(detector_with_handler.isSame(_origin, string_difference)).toBe(true);
+    expect(detector_with_handler.isSame(_origin, boolean_difference)).toBe(true);
+});
+
+test('struct diff()', () => {
+    expect(detector_with_handler.isSame(_origin, structure_difference_1)).toBe(true);
+    expect(detector_with_handler.isSame(_origin, structure_difference_2)).toBe(true);
+});
 
 test('same val and struct', () => {
-    expect(handler_detector.isSame({a:1}, {a:1})).toBe(true);
+    expect(detector_with_handler.isSame({a: 1}, {a: 1})).toBe(true);
 });
 
 test('same struct', () => {
-    expect(handler_detector.isSame({a:1}, {a:2})).toBe(true);
+    expect(detector_with_handler.isSame({a: 1}, {a: 2})).toBe(true);
 });
 
 test('diff struct', () => {
-    expect(handler_detector.isSame({a:1}, {b:1})).toBe(false);
+    expect(detector_with_handler.isSame({a: 1}, {b: 1})).toBe(false);
 });
 
-test('def type', () => {
-    expect(handler_detector.isSame({a:1}, {a:"1"})).toBe(false);
+test('def type.', () => {
+    expect(detector_with_handler.isSame({a: 1}, {a: "1"})).toBe(false);
 });
+
+test('extra attr.', () => {
+    expect(detector_with_handler.isSame({a: 1, b: 1}, {a: 1})).toBe(false);
+    expect(detector_with_handler.isSame({a: 1}, {a: 1, b: 1})).toBe(false);
+});
+
+test('array.', () => {
+    expect(detector.isSame([{a: 1}, {b: 1}], [{a: 1}, {b: 1}])).toBe(true);
+    expect(detector.isSame([{a: 1}, {b: 1}], [{b: 1}, {a: 1}])).toBe(false);
+});
+
+

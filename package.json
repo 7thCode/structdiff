@@ -4,7 +4,6 @@
   "description": "testing object structure difference.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "module": "esm/index.js",
   "scripts": {
     "test": "jest",
     "build": "tsc",

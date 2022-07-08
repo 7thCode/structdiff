@@ -32,8 +32,7 @@ const object2 = {
 	}
 };
 
-const result:boolean = detector.isSame(object1, object2, [comp_type]);
-
+let result:boolean = detector.isSame(object1, object2, [comp_type]);
 ```
 ```
 comp_type: 
@@ -94,6 +93,19 @@ console.log(detector.isSame(object1, object2));
 comp_type: ignored.
 ```
 
+
+#### Detects differences in structure and value "types".
+
+```js
+console.log(structdiff.isSame({a: 1, b: 1}, {a: 1}))
+
+> true
+
+console.log(structdiff.isSame({a: 1}, {a: 1, b: 1}))
+
+> false
+```
+
 #### Detects differences in structure and value "types".
 
 ```js
@@ -137,6 +149,17 @@ console.log(structdiff.isSame([{a: 1}, {b: 1}], [{a: 1}, {b: 1}]))
 > true
 
 console.log(structdiff.isSame([{a: 1}, {b: 1}], [{b: 1}, {a: 1}]))
+
+> false
+```
+#### Of course, some of the objects can also be compared.
+
+```js
+console.log(structdiff.isSame(_origin.children.john, copy.children.john))
+
+> true
+
+console.log(structdiff.isSame(_origin.children.john, _origin.children.tom))
 
 > false
 ```
