@@ -1,7 +1,8 @@
 # structdiff
 
-### Detect differences in the structure of objects.
+## Detect differences in the structure of objects.
 
+### How to use
 ```js
 
 const structdiff: any = require("structdiff");
@@ -40,7 +41,7 @@ comp_type:
     1: Detects differences in structure and values.
     2: Only structural differences are detected.
 ```
-
+### With Handler
 ```js
 
 const structdiff: any = require("structdiff");
@@ -92,73 +93,70 @@ console.log(detector.isSame(object1, object2));
 comp_type: ignored.
 ```
 
-
-#### Detects differences in structure and value "types".
-
+***
+### Default
+###### Detects differences in structure and value "types".
 ```js
 console.log(structdiff.isSame({a: 1, b: 1}, {a: 1}))
-
 > true
 
 console.log(structdiff.isSame({a: 1}, {a: 1, b: 1}))
-
 > false
 ```
-
-#### Detects differences in structure and value "types".
-
 ```js
 console.log(structdiff.isSame({a: 1}, {a: 2}, 0))
-
 > true
 
 console.log(structdiff.isSame({a: 1}, {b: 2}, 0))
-
 > false
 ```
-
-#### Detects differences in structure and values.
-
+***
+### Strict Mode
+###### Detects differences in structure and values.
 ```js
 console.log(structdiff.isSame({a: 1}, {a: 1}, 1))
 > true
 
 console.log(structdiff.isSame({a: 1}, {a: 2}, 1))
-
 > false
 ```
-
-#### Only structural differences are detected.
-
+***
+### Loose Mode
+###### Only structural differences are detected.
 ```js
 console.log(structdiff.isSame({a: 1}, {a: "2"}, 2))
-
 > true
 
 console.log(structdiff.isSame({a: 1}, {b: "2"}, 2))
-
 > false
 ```
-
-#### The difference in the arrangement order is the difference in the structure.
-
+***
+### Array order
+###### The difference in the arrangement order is the difference in the structure.
 ```js
 console.log(structdiff.isSame([{a: 1}, {b: 1}], [{a: 1}, {b: 1}]))
-
 > true
 
 console.log(structdiff.isSame([{a: 1}, {b: 1}], [{b: 1}, {a: 1}]))
-
 > false
 ```
-#### Of course, some of the objects can also be compared.
-
+***
+### Part of the object
+###### Of course, some of the objects can also be compared.
 ```js
 console.log(structdiff.isSame(_origin.children.john, copy.children.john))
-
 > true
 
 console.log(structdiff.isSame(_origin.children.john, _origin.children.tom))
-
 > false
+```
+***
+### Exceptionally
+###### Exceptionally, **[]** and **{}** are the same, as are **0** and **NaN**.
+```js
+console.log(structdiff.isSame([], {}))
+> true
+
+console.log(structdiff.isSame(0, NaN))
+> true
 ```

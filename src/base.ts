@@ -47,3 +47,10 @@ export function isContainer(value: unknown): boolean {
     return ((value !== null) && (typeof value === 'object'));
 }
 
+export function isType(value: unknown): string {
+    let result:string = typeof value;
+    if (Array.isArray(value)) {
+         result = "array";
+    }
+    return result;
+}

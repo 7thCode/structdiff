@@ -136,13 +136,13 @@ const structure_difference_2 = {
     }
 };
 
-class TestHandler {
+class TestHandler extends structdiff.DetectHandler {
 
     constructor() {
+        super()
     }
 
     public compare(s: any, d: any): boolean {
-        console.log(s + " " + d);
         return ((typeof s) === (typeof d));
     }
 
@@ -152,14 +152,14 @@ class TestHandler {
 
 comp_type:
     0: default. 構造と値の「タイプ」の違いを検出します。
-    1: 構造と値の違いを検出します。
-    2: 構造の違いのみが検出されます。
-
+    1: strict.  構造と値の違いを検出します。
+    2: loose.   構造の違いのみが検出されます。
 */
 
 const detector = new structdiff.StrDiffDetector();
 
 test('same structe and value', () => {
+
     expect(detector.isSame(_origin, copy)).toBe(true);
     expect(detector.isSame(_origin.children.john, copy.children.john)).toBe(true);
     expect(detector.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
@@ -168,6 +168,79 @@ test('same structe and value', () => {
     expect(detector.isSame(_origin, number_difference)).toBe(true);
     expect(detector.isSame(_origin, string_difference)).toBe(true);
     expect(detector.isSame(_origin, boolean_difference)).toBe(true);
+
+    expect(detector.isSame({}, {})).toBe(true);
+//    expect(detector.isSame({}, [])).toBe(false);
+    expect(detector.isSame({}, "")).toBe(false);
+    expect(detector.isSame({}, 0)).toBe(false);
+    expect(detector.isSame({}, false)).toBe(false);
+    expect(detector.isSame({}, null)).toBe(false);
+    expect(detector.isSame({}, NaN)).toBe(false);
+    expect(detector.isSame({}, undefined)).toBe(false);
+
+//    expect(detector.isSame([], {})).toBe(false);
+    expect(detector.isSame([], [])).toBe(true);
+    expect(detector.isSame([], "")).toBe(false);
+    expect(detector.isSame([], 0)).toBe(false);
+    expect(detector.isSame([], false)).toBe(false);
+    expect(detector.isSame([], null)).toBe(false);
+    expect(detector.isSame([], NaN)).toBe(false);
+    expect(detector.isSame([], undefined)).toBe(false);
+
+    expect(detector.isSame("", {})).toBe(false);
+    expect(detector.isSame("", [])).toBe(false);
+    expect(detector.isSame("", "")).toBe(true);
+    expect(detector.isSame("", 0)).toBe(false);
+    expect(detector.isSame("", false)).toBe(false);
+    expect(detector.isSame("", null)).toBe(false);
+    expect(detector.isSame("", NaN)).toBe(false);
+    expect(detector.isSame("", undefined)).toBe(false);
+
+    expect(detector.isSame(0, {})).toBe(false);
+    expect(detector.isSame(0, [])).toBe(false);
+    expect(detector.isSame(0, "")).toBe(false);
+    expect(detector.isSame(0, 0)).toBe(true);
+    expect(detector.isSame(0, false)).toBe(false);
+    expect(detector.isSame(0, null)).toBe(false);
+//    expect(detector.isSame(0, NaN)).toBe(false);
+    expect(detector.isSame(0, undefined)).toBe(false);
+
+    expect(detector.isSame(false, {})).toBe(false);
+    expect(detector.isSame(false, [])).toBe(false);
+    expect(detector.isSame(false, "")).toBe(false);
+    expect(detector.isSame(false, 0)).toBe(false);
+    expect(detector.isSame(false, false)).toBe(true);
+    expect(detector.isSame(false, null)).toBe(false);
+    expect(detector.isSame(false, NaN)).toBe(false);
+    expect(detector.isSame(false, undefined)).toBe(false);
+
+    expect(detector.isSame(null, {})).toBe(false);
+    expect(detector.isSame(null, [])).toBe(false);
+    expect(detector.isSame(null, "")).toBe(false);
+    expect(detector.isSame(null, 0)).toBe(false);
+    expect(detector.isSame(null, false)).toBe(false);
+    expect(detector.isSame(null, null)).toBe(false);
+    expect(detector.isSame(null, NaN)).toBe(false);
+    expect(detector.isSame(null, undefined)).toBe(false);
+
+    expect(detector.isSame(NaN, {})).toBe(false);
+    expect(detector.isSame(NaN, [])).toBe(false);
+    expect(detector.isSame(NaN, "")).toBe(false);
+//    expect(detector.isSame(NaN, 0)).toBe(false);
+    expect(detector.isSame(NaN, false)).toBe(false);
+    expect(detector.isSame(NaN, null)).toBe(false);
+    expect(detector.isSame(NaN, NaN)).toBe(true);
+    expect(detector.isSame(NaN, undefined)).toBe(false);
+
+    expect(detector.isSame(undefined, {})).toBe(false);
+    expect(detector.isSame(undefined, [])).toBe(false);
+    expect(detector.isSame(undefined, "")).toBe(false);
+    expect(detector.isSame(undefined, 0)).toBe(false);
+    expect(detector.isSame(undefined, false)).toBe(false);
+    expect(detector.isSame(undefined, null)).toBe(false);
+    expect(detector.isSame(undefined, NaN)).toBe(false);
+    expect(detector.isSame(undefined, undefined)).toBe(false);
+
 });
 
 test('detect value diff(number)', () => {
@@ -223,6 +296,23 @@ test('array.', () => {
     expect(detector.isSame([{a: 1}, {b: 1}], [{b: 1}, {a: 1}])).toBe(false);
 });
 
+test('array.', () => {
+    expect(detector.isSame([{a: 1}, {b: 1}], [{a: 1}, {b: 1}])).toBe(true);
+    expect(detector.isSame([{a: 1}, {b: 1}], [{b: 1}, {a: 1}])).toBe(false);
+
+    expect(detector.isSame([0], [1], 0)).toBe(true);
+    expect(detector.isSame([0], [0], 1)).toBe(true);
+    expect(detector.isSame([0], ["1"], 2)).toBe(true);
+});
+
+test('except.', () => {
+    expect(detector.isSame({}, [])).toBe(true);
+    expect(detector.isSame([], {})).toBe(true);
+    expect(detector.isSame(0, NaN)).toBe(true);
+    expect(detector.isSame(NaN, 0)).toBe(true);
+});
+
+
 
 const array1 = [{a: "1", b: 1}, {a: 1, b: 1}];
 
@@ -276,11 +366,6 @@ test('def type.', () => {
 test('extra attr.', () => {
     expect(detector_with_handler.isSame({a: 1, b: 1}, {a: 1})).toBe(false);
     expect(detector_with_handler.isSame({a: 1}, {a: 1, b: 1})).toBe(false);
-});
-
-test('array.', () => {
-    expect(detector.isSame([{a: 1}, {b: 1}], [{a: 1}, {b: 1}])).toBe(true);
-    expect(detector.isSame([{a: 1}, {b: 1}], [{b: 1}, {a: 1}])).toBe(false);
 });
 
 

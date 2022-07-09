@@ -2,7 +2,6 @@
 
 const base: any = require("./base");
 
-
     /**
      * Handler
      *
@@ -14,11 +13,9 @@ const base: any = require("./base");
      * @returns boolean
      *
      */
-class DetectHandler {
+abstract class DetectHandler {
 
-    public compare(s: any, d: any): boolean {
-        return (s === d);
-    }
+    abstract compare(s: any, d: any): boolean;
 
 }
 
@@ -39,7 +36,7 @@ class StrDiffDetector {
         } else {
             switch (comp_type) {
                 case 0:
-                    result = ((typeof s) === (typeof d));
+                    result = (base.isType(s) === base.isType(d));
                     break;
                 case 1:
                     result = (s === d);
@@ -51,10 +48,9 @@ class StrDiffDetector {
     }
 
     public isSame(s: any, d: any, comp_type: number = 0): boolean {
-        let result = false;
+        let result = true;
         if ((base.isValue(s)) && (base.isValue(d))) {
-            result = true;
-            if (typeof s === "object") {
+            if ((base.isContainer(s)) && (base.isContainer(d))) {
                 const attrs_s = Object.keys(s);
                 const attrs_d = Object.keys(d);
                 if (attrs_s.length === attrs_d.length) {
@@ -77,6 +73,8 @@ class StrDiffDetector {
             } else {
                 result = this.isSameValue(s, d, comp_type);
             }
+        } else {
+            result = false;
         }
         return result;
     }
