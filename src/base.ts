@@ -10,20 +10,6 @@
  * isNumber
  *
  * @remarks
- * 値が数か
- *
- * @param value - 値
- * @returns 数か
- */
-export function isNumber(value: unknown): boolean {
-    return ((typeof value === 'number') && (isFinite(value)));
-}
-
-
-/**
- * isNumber
- *
- * @remarks
  * 値がnull,undef以外
  *
  * @param value - 値

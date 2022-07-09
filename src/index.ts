@@ -65,6 +65,7 @@ class StrDiffDetector {
                             }
                         } else {
                             result = false;
+                            break;
                         }
                     }
                 } else {

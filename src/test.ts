@@ -170,7 +170,7 @@ test('same structe and value', () => {
     expect(detector.isSame(_origin, boolean_difference)).toBe(true);
 
     expect(detector.isSame({}, {})).toBe(true);
-//    expect(detector.isSame({}, [])).toBe(false);
+    expect(detector.isSame({}, [])).toBe(true);
     expect(detector.isSame({}, "")).toBe(false);
     expect(detector.isSame({}, 0)).toBe(false);
     expect(detector.isSame({}, false)).toBe(false);
@@ -178,7 +178,7 @@ test('same structe and value', () => {
     expect(detector.isSame({}, NaN)).toBe(false);
     expect(detector.isSame({}, undefined)).toBe(false);
 
-//    expect(detector.isSame([], {})).toBe(false);
+    expect(detector.isSame([], {})).toBe(true);
     expect(detector.isSame([], [])).toBe(true);
     expect(detector.isSame([], "")).toBe(false);
     expect(detector.isSame([], 0)).toBe(false);
@@ -202,7 +202,7 @@ test('same structe and value', () => {
     expect(detector.isSame(0, 0)).toBe(true);
     expect(detector.isSame(0, false)).toBe(false);
     expect(detector.isSame(0, null)).toBe(false);
-//    expect(detector.isSame(0, NaN)).toBe(false);
+    expect(detector.isSame(0, NaN)).toBe(true);
     expect(detector.isSame(0, undefined)).toBe(false);
 
     expect(detector.isSame(false, {})).toBe(false);
@@ -226,7 +226,7 @@ test('same structe and value', () => {
     expect(detector.isSame(NaN, {})).toBe(false);
     expect(detector.isSame(NaN, [])).toBe(false);
     expect(detector.isSame(NaN, "")).toBe(false);
-//    expect(detector.isSame(NaN, 0)).toBe(false);
+    expect(detector.isSame(NaN, 0)).toBe(true);
     expect(detector.isSame(NaN, false)).toBe(false);
     expect(detector.isSame(NaN, null)).toBe(false);
     expect(detector.isSame(NaN, NaN)).toBe(true);
@@ -305,14 +305,12 @@ test('array.', () => {
     expect(detector.isSame([0], ["1"], 2)).toBe(true);
 });
 
-test('except.', () => {
+test('except. (Object is Array. NaN is Number...)', () => {
     expect(detector.isSame({}, [])).toBe(true);
     expect(detector.isSame([], {})).toBe(true);
     expect(detector.isSame(0, NaN)).toBe(true);
     expect(detector.isSame(NaN, 0)).toBe(true);
 });
-
-
 
 const array1 = [{a: "1", b: 1}, {a: 1, b: 1}];
 
