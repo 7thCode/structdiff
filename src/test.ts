@@ -366,4 +366,29 @@ test('extra attr.', () => {
     expect(detector_with_handler.isSame({a: 1}, {a: 1, b: 1})).toBe(false);
 });
 
+import { StrDiffDetector, DetectHandler } from '.';
 
+class TestHandler2 extends DetectHandler {
+
+    constructor() {
+        super()
+    }
+
+    public compare(s: any, d: any): boolean {
+        return ((typeof s) === (typeof d));
+    }
+
+}
+
+const detector2 = new StrDiffDetector(new TestHandler2());
+
+test('same structe and value', () => {
+    expect(detector2.isSame(_origin, copy)).toBe(true);
+    expect(detector2.isSame(_origin.children.john, copy.children.john)).toBe(true);
+    expect(detector2.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
+    expect(detector2.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
+    expect(detector2.isSame(_origin, difference)).toBe(true);
+    expect(detector2.isSame(_origin, number_difference)).toBe(true);
+    expect(detector2.isSame(_origin, string_difference)).toBe(true);
+    expect(detector2.isSame(_origin, boolean_difference)).toBe(true);
+});

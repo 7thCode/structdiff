@@ -13,13 +13,13 @@ const base: any = require("./base");
      * @returns boolean
      *
      */
-abstract class DetectHandler {
+export abstract class DetectHandler {
 
     abstract compare(s: any, d: any): boolean;
 
 }
 
-class StrDiffDetector {
+export class StrDiffDetector {
 
     private handler: DetectHandler | null;
 
