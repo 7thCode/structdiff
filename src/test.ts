@@ -1,4 +1,82 @@
-const structdiff: any = require("./index");
+/**
+ * Copyright © 2020 2021 2022 7thCode.(http://seventh-code.com/)
+ * This software is released under the MIT License.
+ * opensource.org/licenses/mit-license.php
+ */
+
+"use strict";
+
+/*
+*
+* CommonJS
+*
+* */
+
+const structdiff = require('./index')
+
+class CJSHandler extends structdiff.DetectHandler {
+
+    constructor() {
+        super()
+    }
+
+    public compare(s: any, d: any): boolean {
+        return ((typeof s) === (typeof d));
+    }
+
+}
+
+const cjs_detector = new structdiff.StrDiffDetector(new CJSHandler());
+
+test('CommonJS', () => {
+    expect(cjs_detector.isSame(_origin, copy)).toBe(true);
+    expect(cjs_detector.isSame(_origin.children.john, copy.children.john)).toBe(true);
+    expect(cjs_detector.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
+    expect(cjs_detector.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
+    expect(cjs_detector.isSame(_origin, difference)).toBe(true);
+    expect(cjs_detector.isSame(_origin, number_difference)).toBe(true);
+    expect(cjs_detector.isSame(_origin, string_difference)).toBe(true);
+    expect(cjs_detector.isSame(_origin, boolean_difference)).toBe(true);
+});
+
+
+/*
+*
+* ESModules
+*
+* */
+
+import {DetectHandler, StrDiffDetector} from "./index";
+
+class ESHandler extends DetectHandler {
+
+    constructor() {
+        super()
+    }
+
+    public compare(s: any, d: any): boolean {
+        return ((typeof s) === (typeof d));
+    }
+
+}
+
+const es_detector = new StrDiffDetector(new ESHandler());
+
+test('ES Modules', () => {
+    expect(es_detector.isSame(_origin, copy)).toBe(true);
+    expect(es_detector.isSame(_origin.children.john, copy.children.john)).toBe(true);
+    expect(es_detector.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
+    expect(es_detector.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
+    expect(es_detector.isSame(_origin, difference)).toBe(true);
+    expect(es_detector.isSame(_origin, number_difference)).toBe(true);
+    expect(es_detector.isSame(_origin, string_difference)).toBe(true);
+    expect(es_detector.isSame(_origin, boolean_difference)).toBe(true);
+});
+
+
+
+
+
 
 const _origin = {
     children: {
@@ -136,7 +214,7 @@ const structure_difference_2 = {
     }
 };
 
-class TestHandler extends structdiff.DetectHandler {
+class TestHandler extends DetectHandler {
 
     constructor() {
         super()
@@ -156,7 +234,7 @@ comp_type:
     2: loose.   構造の違いのみが検出されます。
 */
 
-const detector = new structdiff.StrDiffDetector();
+const detector = new StrDiffDetector();
 
 test('same structe and value', () => {
 
@@ -327,7 +405,7 @@ test('array.', () => {
 });
 
 
-const detector_with_handler = new structdiff.StrDiffDetector(new TestHandler());
+const detector_with_handler = new StrDiffDetector(new TestHandler());
 
 test('same structe and value', () => {
     expect(detector_with_handler.isSame(_origin, copy)).toBe(true);
@@ -366,29 +444,5 @@ test('extra attr.', () => {
     expect(detector_with_handler.isSame({a: 1}, {a: 1, b: 1})).toBe(false);
 });
 
-import { StrDiffDetector, DetectHandler } from '.';
 
-class TestHandler2 extends DetectHandler {
 
-    constructor() {
-        super()
-    }
-
-    public compare(s: any, d: any): boolean {
-        return ((typeof s) === (typeof d));
-    }
-
-}
-
-const detector2 = new StrDiffDetector(new TestHandler2());
-
-test('same structe and value', () => {
-    expect(detector2.isSame(_origin, copy)).toBe(true);
-    expect(detector2.isSame(_origin.children.john, copy.children.john)).toBe(true);
-    expect(detector2.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
-    expect(detector2.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
-    expect(detector2.isSame(_origin, difference)).toBe(true);
-    expect(detector2.isSame(_origin, number_difference)).toBe(true);
-    expect(detector2.isSame(_origin, string_difference)).toBe(true);
-    expect(detector2.isSame(_origin, boolean_difference)).toBe(true);
-});

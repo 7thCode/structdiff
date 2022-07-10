@@ -1,8 +1,14 @@
+/**
+ * Copyright © 2020 2021 2022 7thCode.(http://seventh-code.com/)
+ * This software is released under the MIT License.
+ * opensource.org/licenses/mit-license.php
+ */
+
 "use strict";
 
-const base: any = require("./base");
+import {isType, isValue, isContainer} from "./base";
 
-    /**
+/**
      * Handler
      *
      * @remarks
@@ -12,7 +18,7 @@ const base: any = require("./base");
      * @param d
      * @returns boolean
      *
-     */
+*/
 export abstract class DetectHandler {
 
     abstract compare(s: any, d: any): boolean;
@@ -36,7 +42,7 @@ export class StrDiffDetector {
         } else {
             switch (comp_type) {
                 case 0:
-                    result = (base.isType(s) === base.isType(d));
+                    result = (isType(s) === isType(d));
                     break;
                 case 1:
                     result = (s === d);
@@ -49,8 +55,8 @@ export class StrDiffDetector {
 
     public isSame(s: any, d: any, comp_type: number = 0): boolean {
         let result = true;
-        if ((base.isValue(s)) && (base.isValue(d))) {
-            if ((base.isContainer(s)) && (base.isContainer(d))) {
+        if ((isValue(s)) && (isValue(d))) {
+            if ((isContainer(s)) && (isContainer(d))) {
                 const attrs_s = Object.keys(s);
                 const attrs_d = Object.keys(d);
                 if (attrs_s.length === attrs_d.length) {
