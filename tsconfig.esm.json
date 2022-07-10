@@ -1,6 +1,7 @@
 {
   "extends": ".",
   "compilerOptions": {
+    "types": ["node", "jest"],
     "module": "ESNext",
     "outDir": "dist/esm",
     "declaration": true,
