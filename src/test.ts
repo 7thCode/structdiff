@@ -74,10 +74,6 @@ test('ES Modules', () => {
 });
 
 
-
-
-
-
 const _origin = {
     children: {
         john: {
