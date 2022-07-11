@@ -88,4 +88,4 @@ export class StrDiffDetector {
 
 }
 
-module.exports = {StrDiffDetector, DetectHandler};
+// module.exports = {StrDiffDetector, DetectHandler};
