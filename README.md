@@ -1,14 +1,11 @@
 # structdiff
-
-## Detect differences in the structure of objects.
+### Detect **only** differences in the structure of objects.
+#### This is useful for validation.
 
 ### How to use
+
+example
 ```js
-
-const structdiff: any = require("structdiff");
-
-const detector = new structdiff.StrDiffDetector();
-
 const object1 = {
 	children: {
 		john: {
@@ -32,8 +29,24 @@ const object2 = {
 		}
 	}
 };
+```
 
-let result:boolean = detector.isSame(object1, object2, [comp_type]);
+CommonJS
+```ts
+const structdiff: any = require("structdiff");
+
+const cjs_detector = new structdiff.StructDiff();
+
+let result:boolean = cjs_detector.isSame(object1, object2, [comp_type]);
+```
+
+ESModule
+```ts
+import {StructDiff} from "structdiff";
+
+const es_detector = new StructDiff();
+
+let result:boolean = es_detector.isSame(object1, object2, [comp_type]);
 ```
 ```
 comp_type: 
@@ -42,51 +55,44 @@ comp_type:
     2: Only structural differences are detected.
 ```
 ### With Handler
-```js
 
+CommonJS
+```js
 const structdiff: any = require("structdiff");
 
+class CJSHandler extends structdiff.DetectHandler {
 
-// compare(s: any, d: any): boolean
-class TestHandler {
+    constructor() {
+        super()
+    }
 
-	constructor() {
-	}
+    public compare(s: any, d: any): boolean {
+        return ((typeof s) === (typeof d));
+    }
+}
 
-	// all "value" compare.
-	public compare(s: any, d: any): boolean {
-		return ((typeof s) === (typeof d)); // custom diff. same is true.
-	}
+const cjs_detector = new structdiff.StructDiff(new CJSHandler());
+let result:boolean = cjs_detector.isSame(object1, object2);
+```
+
+ESModule
+```ts
+import {DetectHandler, StructDiff} from "structdiff";
+
+class ESHandler extends DetectHandler {
+
+    constructor() {
+        super()
+    }
+
+    public compare(s: any, d: any): boolean {
+        return ((typeof s) === (typeof d));
+    }
 
 }
 
-const detector = new structdiff.StrDiffDetector(new TestHandler());
-
-const object1 = {
-	children: {
-		john: {
-			schooling: true, hobby: [{name: "Cycling"}, {name: "Dance", type: "HipHop"}],
-			pet: [{type: "dog", name: "Max"}], age: 12
-		},
-		tom: {
-			schooling: false, hobby: [{name: "Squash"}], pet: [{type: "cat", name: "Chloe"}], age: 5
-		}
-	}
-};
-
-const object2 = {
-	children: {
-		tom: {
-			pet: [{type: "cat", name: "Chloe"}], age: 5, schooling: false, hobby: [{name: "Squash"}]
-		},
-		john: {
-			hobby: [{name: "Cycling"}, {name: "Dance", type: "HipHop"}],
-			pet: [{name: "Max",type: "dog"}], age: 12, schooling: true
-		}
-	}
-};
-
-let result:boolean = detector.isSame(object1, object2);
+const es_detector = new StructDiff(new ESHandler());
+let result:boolean = es_detector.isSame(object1, object2);
 ```
 ```
 comp_type: ignored.

@@ -25,7 +25,7 @@ export abstract class DetectHandler {
 
 }
 
-export class StrDiffDetector {
+export class StructDiff {
 
     private handler: DetectHandler | null;
 
@@ -87,5 +87,3 @@ export class StrDiffDetector {
     }
 
 }
-
-// module.exports = {StrDiffDetector, DetectHandler};

@@ -6,10 +6,7 @@
 
 "use strict";
 
-
-const structdiff = require('structdiff')
-
-import {DetectHandler, StrDiffDetector} from "structdiff";
+import {DetectHandler, StructDiff} from "structdiff";
 
 const _origin = {
     children: {
@@ -152,11 +149,11 @@ const structure_difference_2 = {
 * CommonJS
 *
 * */
-
-
 describe('structdiff(CommonJS)', () => {
 
-    class CJSHandler extends structdiff.DetectHandler {
+    const {DetectHandler, StructDiff} = require('structdiff')
+
+    class CJSHandler extends DetectHandler {
 
         constructor() {
             super()
@@ -168,7 +165,7 @@ describe('structdiff(CommonJS)', () => {
 
     }
 
-    const cjs_detector = new structdiff.StrDiffDetector(new CJSHandler());
+    const cjs_detector = new StructDiff(new CJSHandler());
 
     it('CommonJS', () => {
         expect(cjs_detector.isSame(_origin, copy)).toBe(true);
@@ -182,14 +179,13 @@ describe('structdiff(CommonJS)', () => {
     });
 });
 
-
 /*
 *
 * ESModules
 *
 * */
-
 describe('structdiff(ESModule)', () => {
+
     class ESHandler extends DetectHandler {
 
         constructor() {
@@ -202,7 +198,7 @@ describe('structdiff(ESModule)', () => {
 
     }
 
-    const es_detector = new StrDiffDetector(new ESHandler());
+    const es_detector = new StructDiff(new ESHandler());
 
     it('ES Modules', () => {
         expect(es_detector.isSame(_origin, copy)).toBe(true);
@@ -225,7 +221,7 @@ describe('structdiff', () => {
         2: loose.   構造の違いのみが検出されます。
     */
 
-    const detector = new StrDiffDetector();
+    const detector = new StructDiff();
 
     it('same structe and value', () => {
 
@@ -410,7 +406,7 @@ describe('structdiff(with handler)', () => {
 
     }
 
-    const detector_with_handler = new StrDiffDetector(new TestHandler());
+    const detector_with_handler = new StructDiff(new TestHandler());
 
     it('same structe and value', () => {
         expect(detector_with_handler.isSame(_origin, copy)).toBe(true);
