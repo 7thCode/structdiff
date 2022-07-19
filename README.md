@@ -1,6 +1,39 @@
-# structdiff
-### Detect **only** differences in the structure of objects.
-#### This is useful for validation.
+| index | [DEMO] | [in detail] |
+|-------|--------|----|
+
+[DEMO]: docs/demo.md
+[in detail]: docs/detail.md
+
+# StructDiff
+[![npm version](https://badge.fury.io/js/structdiff.svg)](https://badge.fury.io/js/structdiff)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![7thCode](https://circleci.com/gh/7thCode/structdiff.svg?style=shield)](<LINK>)
+![node.js.yml](https://github.com/7thCode/structdiff/actions/workflows/node.js.yml/badge.svg)
+
+Detect **only** differences in the structure of objects.
+This is useful for validation.
+
+# Motivation
+
+# DEMO
+
+"StructDiff"の魅力が直感的に伝えわるデモ動画や図解を載せる
+
+# Features
+
+"StructDiff"のセールスポイントや差別化などを説明する
+
+# Requirement
+
+# Installation
+
+Requirementで列挙したライブラリなどのインストール方法を説明する
+
+```bash
+npm install structfiff
+```
+
+# Usage
 
 ### How to use
 
@@ -164,3 +197,17 @@ console.log(detector.isSame([], {}))
 console.log(detector.isSame(0, NaN))
 > true
 ```
+
+# Note
+
+注意点などがあれば書く
+
+# Author
+
+* 作成者
+* 所属
+* E-mail
+
+# License
+
+"structdiff" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
