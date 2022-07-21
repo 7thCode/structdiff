@@ -12,19 +12,11 @@ This is useful for validation.
 
 # Motivation
 
-# DEMO
-
-"StructDiff"の魅力が直感的に伝えわるデモ動画や図解を載せる
-
 # Features
-
-"StructDiff"のセールスポイントや差別化などを説明する
 
 # Requirement
 
 # Installation
-
-Requirementで列挙したライブラリなどのインストール方法を説明する
 
 ```bash
 npm install structfiff
@@ -197,13 +189,11 @@ console.log(detector.isSame(0, NaN))
 
 # Note
 
-注意点などがあれば書く
+
 
 # Author
 
-* 作成者
-* 所属
-* E-mail
+info@seventh-code.com
 
 # License
 
