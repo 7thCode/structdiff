@@ -1,13 +1,10 @@
-| index | [DEMO] | [in detail] |
-|-------|--------|----|
-
-[DEMO]: docs/demo.md
-[in detail]: docs/detail.md
+| [README] | [DEMO] | [in detail] |
+|----------|--------|-------------|
 
 # StructDiff
 [![npm version](https://badge.fury.io/js/structdiff.svg)](https://badge.fury.io/js/structdiff)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![7thCode](https://circleci.com/gh/7thCode/structdiff.svg?style=shield)](<LINK>)
+[![7thCode](https://circleci.com/gh/7thCode/structdiff.svg?style=shield)]()
 ![node.js.yml](https://github.com/7thCode/structdiff/actions/workflows/node.js.yml/badge.svg)
 
 Detect **only** differences in the structure of objects.
@@ -211,3 +208,7 @@ console.log(detector.isSame(0, NaN))
 # License
 
 "structdiff" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
+
+[README]: README.md
+[DEMO]: docs/demo.md
+[in detail]: docs/detail.md
