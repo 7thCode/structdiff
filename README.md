@@ -1,24 +1,31 @@
-| [README] | [DEMO] | [in detail] |
-|----------|--------|-------------|
 
+<div style="text-align: center;">
+<div style="font-size: 30px; font-weight:900">StructDiff</div>
+
+Detect **only** differences in the structure of objects.
+This is useful for validation.
+
+![GitHub package.json version](https://img.shields.io/github/package-json/v/7thcode/structdiff?color=deepgreen)
 [![npm version](https://badge.fury.io/js/structdiff.svg)](https://badge.fury.io/js/structdiff)
 ![npm type definitions](https://img.shields.io/npm/types/structdiff)
 ![GitHub](https://img.shields.io/github/license/7thcode/structdiff)
 [![7thCode](https://circleci.com/gh/7thCode/structdiff.svg?style=shield)]()
 ![node.js.yml](https://github.com/7thCode/structdiff/actions/workflows/node.js.yml/badge.svg)
 ![GitHub last commit](https://img.shields.io/github/last-commit/7thcode/structdiff)
-# StructDiff
 
-Detect **only** differences in the structure of objects.
-This is useful for validation.
+ [README]　[DEMO]　[in detail]
+
+</div>
+
+***
 
 # Motivation
-MongoDBのレコードmとレコードn,同じ形だったかな？
 
+Is it the same **shape** as record m and record n in MongoDB?
 # Features
-
+Writing now.
 # Requirement
-
+Writing now.
 # Installation
 
 ```bash
@@ -26,7 +33,7 @@ npm install structfiff
 ```
 
 # Usage
-
+Writing now.
 ### How to use
 
 example
@@ -55,7 +62,6 @@ const object2 = {
 	}
 };
 ```
-
 CommonJS
 ```ts
 const structdiff: any = require("structdiff");
@@ -64,7 +70,6 @@ const cjs_detector = new structdiff.StructDiff();
 
 let result:boolean = cjs_detector.isSame(object1, object2, [comp_type]);
 ```
-
 ESModule
 ```ts
 import {StructDiff} from "structdiff";
@@ -99,7 +104,6 @@ class CJSHandler extends structdiff.DetectHandler {
 const cjs_detector = new structdiff.StructDiff(new CJSHandler());
 let result:boolean = cjs_detector.isSame(object1, object2);
 ```
-
 ESModule
 ```ts
 import {DetectHandler, StructDiff} from "structdiff";
