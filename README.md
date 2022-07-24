@@ -1,6 +1,5 @@
-
 <div style="text-align: center;">
-<div style="font-size: 30px; font-weight:900">StructDiff</div>
+<h1>StructDiff</h1>
 
 Detect **only** differences in the structure of objects.
 This is useful for validation.
