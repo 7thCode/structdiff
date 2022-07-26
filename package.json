@@ -20,7 +20,9 @@
   "keywords": [
     "object",
     "structure",
-    "difference"
+    "difference",
+    "dynamic",
+    "validation"
   ],
   "author": "7thCode",
   "license": "MIT",
