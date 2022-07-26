@@ -19,22 +19,16 @@ This is useful for validation.
 ***
 
 # Motivation
-
-Is it the same **shape** as record m and record n in MongoDB?
+Is it the same **shape** as record m and record n in MongoDB ?
 # Features
-Writing now.
-# Requirement
-Writing now.
+It is determined whether the two objects have the same shape, ignoring the difference in primitive values.
+Such processing is effective as **dynamic validation**.
 # Installation
-
 ```bash
 npm install structfiff
 ```
-
 # Usage
-Writing now.
 ### How to use
-
 example
 ```js
 const object1 = {
@@ -195,7 +189,7 @@ console.log(detector.isSame(0, NaN))
 
 # Note
 
-
+See demo.md for unclear cases.
 
 # Author
 
