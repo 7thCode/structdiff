@@ -1,5 +1,7 @@
 dist
 *.d.ts
 *.js
-coverage
+
 node_modules
+/docs/typedoc/
+/docs/coverage/

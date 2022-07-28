@@ -1,5 +1,4 @@
-| [README] | [DEMO] | [in detail] |
-|----------|--------|-------------|
+ [README]　[DEMO]　[in detail]
 
 [README]: README.md
 [DEMO]: docs/demo.md
