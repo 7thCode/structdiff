@@ -1,5 +1,5 @@
 {
-  "name": "structdiff",
+  "name": "@seventhcode/structdiff",
   "version": "0.1.4",
   "description": "testing object structure difference.",
   "main": "dist/index.js",
