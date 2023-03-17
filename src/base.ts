@@ -10,6 +10,19 @@
  * isNumber
  *
  * @remarks
+ * is Number?
+ *
+ * @param value - unknown value.
+ * @returns True/False
+ */
+export function isNumber(value: unknown): boolean {
+    return ((typeof value === 'number') && (isFinite(value)));
+}
+
+/**
+ * isValue
+ *
+ * @remarks
  * 値がnull,undef以外
  *
  * @param value - 値
@@ -33,6 +46,7 @@ export function isContainer(value: unknown): boolean {
     return ((value !== null) && (typeof value === 'object'));
 }
 
+/**/
 export function isType(value: unknown): string {
     let result:string = typeof value;
     if (Array.isArray(value)) {
