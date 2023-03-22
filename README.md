@@ -27,9 +27,10 @@ Such processing is effective as **dynamic validation**.
 ```bash
 npm install structfiff
 ```
+No modules depend on it.
 # Usage
 ### How to use
-example
+#### example
 ```js
 const object1 = {
 	children: {
@@ -55,31 +56,40 @@ const object2 = {
 	}
 };
 ```
-CommonJS
-```ts
+#### CommonJS
+```js
 const structdiff: any = require("structdiff");
 
 const cjs_detector = new structdiff.StructDiff();
 
-let result:boolean = cjs_detector.isSame(object1, object2, [comp_type]);
+let result:boolean = cjs_detector.isSame(object1, object2, [type]);
 ```
 ESModule
-```ts
+```js
 import {StructDiff} from "structdiff";
 
 const es_detector = new StructDiff();
 
-let result:boolean = es_detector.isSame(object1, object2, [comp_type]);
+let result:boolean = es_detector.isSame(object1, object2, [type]);
 ```
-```
-comp_type: 
-    0: default. Detects differences in structure and value "types".
-    1: Detects differences in structure and values.
-    2: Only structural differences are detected.
-```
+| params  | meaning               |
+---------|-----------------------
+| object1 | targets for comparison |
+| object2 | targets for comparison |
+| type | type of comparison    |
+
+#### type of comparison
+
+| value | meaning |
+---------|-----------------------
+| 0 | **default**. <br/>Detects differences in structure and value "types". |
+| 1 | Detects differences in structure and values. |
+| 2 | Only structural differences are detected. |
+
+
 ### With Handler
 
-CommonJS
+#### CommonJS
 ```js
 const structdiff: any = require("structdiff");
 
@@ -97,8 +107,8 @@ class CJSHandler extends structdiff.DetectHandler {
 const cjs_detector = new structdiff.StructDiff(new CJSHandler());
 let result:boolean = cjs_detector.isSame(object1, object2);
 ```
-ESModule
-```ts
+#### ESModule
+```js
 import {DetectHandler, StructDiff} from "structdiff";
 
 class ESHandler extends DetectHandler {

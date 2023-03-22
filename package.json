@@ -1,6 +1,6 @@
 {
   "name": "structdiff",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "testing object structure difference.",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
