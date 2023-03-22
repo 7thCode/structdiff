@@ -72,19 +72,19 @@ const es_detector = new StructDiff();
 
 let result:boolean = es_detector.isSame(object1, object2, [type]);
 ```
-| params  | meaning               |
----------|-----------------------
+| params  | meaning                |
+|---------|------------------------|
 | object1 | targets for comparison |
 | object2 | targets for comparison |
-| type | type of comparison    |
+| type    | type of comparison     |
 
 #### type of comparison
 
-| value | meaning |
----------|-----------------------
-| 0 | **default**. <br/>Detects differences in structure and value "types". |
-| 1 | Detects differences in structure and values. |
-| 2 | Only structural differences are detected. |
+| value | meaning                                                               |
+|-------|-----------------------------------------------------------------------|
+| 0     | **default**. <br/>Detects differences in structure and value "types". |
+| 1     | Detects differences in structure and values.                          |
+| 2     | Only structural differences are detected.                             |
 
 
 ### With Handler
