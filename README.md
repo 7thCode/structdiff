@@ -85,7 +85,7 @@ let result:boolean = es_detector.isSame(object1, object2, [type]);
 | 0     | **default**. <br/>Detects differences in structure and value "types". |
 | 1     | Detects differences in structure and values.                          |
 | 2     | Only structural differences are detected.                             |
-
+* Prefer evaluation in handlers over type parameters.
 
 ### With Handler
 

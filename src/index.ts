@@ -47,6 +47,9 @@ export class StructDiff {
                 case 1:
                     result = (s === d);
                     break;
+                case 2:
+                    result = true;
+                    break;
                 default:
             }
         }

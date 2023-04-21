@@ -25,7 +25,7 @@ const _origin = {
     }
 };
 
-const copy = {
+const same1 = {
     children: {
         john: {
             schooling: true,
@@ -42,24 +42,41 @@ const copy = {
     }
 };
 
-const difference = {
+const same2 = {
+	children: {
+		tom: {
+			schooling: false,
+			hobby: [{name: "Squash"}],
+			pet: [{name: "Chloe",type: "cat"}],
+			age: 5
+		},
+		john: {
+			age: 12,
+			hobby: [{name: "Cycling"}, {type: "HipHop", name: "Dance"}],
+			schooling: true,
+			pet: [{type: "dog", name: "Max"}],
+		}
+	}
+};
+
+const same3 = {
     children: {
         tom: {
             age: 8,
             schooling: true,
             hobby: [{name: "Football"}],
-            pet: [{type: "cat", name: "Chloe"}],
+            pet: [{type: "gecko", name: "ninjya"}],
         },
         john: {
-            pet: [{type: "dog", name: "Max"}],
-            hobby: [{name: "Cycling"}, {name: "Dance", type: "HipHop"}],
+            pet: [{type: "monkey", name: "Pu"}],
+            hobby: [{name: "Baseball"}, {name: "Dance", type: "Braiking"}],
             age: 12,
             schooling: true,
         }
     }
 };
 
-const number_difference = {
+const same4 = {
     children: {
         john: {
             schooling: true,
@@ -76,7 +93,7 @@ const number_difference = {
     }
 };
 
-const string_difference = {
+const same5 = {
     children: {
         john: {
             schooling: true,
@@ -93,7 +110,7 @@ const string_difference = {
     }
 };
 
-const boolean_difference = {
+const same6 = {
     children: {
         john: {
             schooling: true,
@@ -110,7 +127,7 @@ const boolean_difference = {
     }
 };
 
-const structure_difference_1 = {
+const same7 = {
     children: {
         tom: {
             schooling: false,
@@ -127,7 +144,7 @@ const structure_difference_1 = {
     }
 };
 
-const structure_difference_2 = {
+const same8 = {
     children: {
         tom: {
             schooling: false,
@@ -144,6 +161,23 @@ const structure_difference_2 = {
     }
 };
 
+const diff1 = {
+	children: {
+		tom: {
+			schooling: 1,
+			hobby: [{name: "Squash"}],
+			pet: [{type: "cat", name: "Chloe"}],
+			age: "5"
+		},
+		john: {
+			age: 12,
+			schooling: true,
+			pet: [{type: "dog", name: "Max"}],
+			hobby: [{name: "Cycling"}, {name: "Dance", type: "HipHop"}]
+		}
+	}
+};
+
 /*
 *
 * CommonJS
@@ -153,7 +187,7 @@ describe('structdiff(CommonJS)', () => {
 
     const {DetectHandler,StructDiff} = require('./index')
 
-    class CJSHandler extends DetectHandler {
+    class Handler extends DetectHandler {
 
         constructor() {
             super()
@@ -165,17 +199,20 @@ describe('structdiff(CommonJS)', () => {
 
     }
 
-    const cjs_detector = new StructDiff(new CJSHandler());
+    const detector = new StructDiff(new Handler());
 
     it('CommonJS', () => {
-        expect(cjs_detector.isSame(_origin, copy)).toBe(true);
-        expect(cjs_detector.isSame(_origin.children.john, copy.children.john)).toBe(true);
-        expect(cjs_detector.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
-        expect(cjs_detector.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
-        expect(cjs_detector.isSame(_origin, difference)).toBe(true);
-        expect(cjs_detector.isSame(_origin, number_difference)).toBe(true);
-        expect(cjs_detector.isSame(_origin, string_difference)).toBe(true);
-        expect(cjs_detector.isSame(_origin, boolean_difference)).toBe(true);
+        expect(detector.isSame(_origin, same1)).toBe(true);
+        expect(detector.isSame(_origin.children.john, same1.children.john)).toBe(true);
+		expect(detector.isSame(_origin, same2)).toBe(true);
+		expect(detector.isSame(_origin.children.john, same2.children.john)).toBe(true);
+        expect(detector.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
+        expect(detector.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
+        expect(detector.isSame(_origin, same3)).toBe(true);
+        expect(detector.isSame(_origin, same4)).toBe(true);
+        expect(detector.isSame(_origin, same5)).toBe(true);
+        expect(detector.isSame(_origin, same6)).toBe(true);
+		expect(detector.isSame(_origin, diff1,2)).toBe(false); // Prefer evaluation in handlers over type parameters.
     });
 });
 
@@ -186,7 +223,7 @@ describe('structdiff(CommonJS)', () => {
 * */
 describe('structdiff(ESModule)', () => {
 
-    class ESHandler extends DetectHandler {
+    class Handler extends DetectHandler {
 
         constructor() {
             super()
@@ -198,17 +235,19 @@ describe('structdiff(ESModule)', () => {
 
     }
 
-    const es_detector = new StructDiff(new ESHandler());
+    const es_detector = new StructDiff(new Handler());
 
     it('ES Modules', () => {
-        expect(es_detector.isSame(_origin, copy)).toBe(true);
-        expect(es_detector.isSame(_origin.children.john, copy.children.john)).toBe(true);
+        expect(es_detector.isSame(_origin, same1)).toBe(true);
+        expect(es_detector.isSame(_origin.children.john, same1.children.john)).toBe(true);
+		expect(es_detector.isSame(_origin, same2)).toBe(true);
+		expect(es_detector.isSame(_origin.children.john, same2.children.john)).toBe(true);
         expect(es_detector.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
         expect(es_detector.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
-        expect(es_detector.isSame(_origin, difference)).toBe(true);
-        expect(es_detector.isSame(_origin, number_difference)).toBe(true);
-        expect(es_detector.isSame(_origin, string_difference)).toBe(true);
-        expect(es_detector.isSame(_origin, boolean_difference)).toBe(true);
+        expect(es_detector.isSame(_origin, same3)).toBe(true);
+        expect(es_detector.isSame(_origin, same4)).toBe(true);
+        expect(es_detector.isSame(_origin, same5)).toBe(true);
+        expect(es_detector.isSame(_origin, same6)).toBe(true);
     });
 });
 
@@ -225,14 +264,18 @@ describe('structdiff', () => {
 
     it('same structe and value', () => {
 
-        expect(detector.isSame(_origin, copy)).toBe(true);
-        expect(detector.isSame(_origin.children.john, copy.children.john)).toBe(true);
+        expect(detector.isSame(_origin, same1)).toBe(true);
+        expect(detector.isSame(_origin.children.john, same1.children.john)).toBe(true);
+		expect(detector.isSame(_origin, same2)).toBe(true);
+		expect(detector.isSame(_origin.children.john, same2.children.john)).toBe(true);
         expect(detector.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
         expect(detector.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
-        expect(detector.isSame(_origin, difference)).toBe(true);
-        expect(detector.isSame(_origin, number_difference)).toBe(true);
-        expect(detector.isSame(_origin, string_difference)).toBe(true);
-        expect(detector.isSame(_origin, boolean_difference)).toBe(true);
+        expect(detector.isSame(_origin, same3, 0)).toBe(true);
+		expect(detector.isSame(_origin, same3, 1)).toBe(false);
+		expect(detector.isSame(_origin, same3, 2)).toBe(true);
+        expect(detector.isSame(_origin, same4)).toBe(true);
+        expect(detector.isSame(_origin, same5)).toBe(true);
+        expect(detector.isSame(_origin, same6)).toBe(true);
 
         expect(detector.isSame({}, {})).toBe(true);
         expect(detector.isSame({}, [])).toBe(true);
@@ -309,14 +352,14 @@ describe('structdiff', () => {
     });
 
     it('detect value diff(number)', () => {
-        expect(detector.isSame(_origin, number_difference, 1)).toBe(false);
-        expect(detector.isSame(_origin, string_difference, 1)).toBe(false);
-        expect(detector.isSame(_origin, boolean_difference, 1)).toBe(false);
+        expect(detector.isSame(_origin, same4, 1)).toBe(false);
+        expect(detector.isSame(_origin, same5, 1)).toBe(false);
+        expect(detector.isSame(_origin, same6, 1)).toBe(false);
     });
 
     it('struct diff()', () => {
-        expect(detector.isSame(_origin, structure_difference_1)).toBe(true);
-        expect(detector.isSame(_origin, structure_difference_2)).toBe(true);
+        expect(detector.isSame(_origin, same7)).toBe(true);
+        expect(detector.isSame(_origin, same8)).toBe(true);
     });
 
     it('same val and struct', () => {
@@ -409,19 +452,21 @@ describe('structdiff(with handler)', () => {
     const detector_with_handler = new StructDiff(new TestHandler());
 
     it('same structe and value', () => {
-        expect(detector_with_handler.isSame(_origin, copy)).toBe(true);
-        expect(detector_with_handler.isSame(_origin.children.john, copy.children.john)).toBe(true);
+        expect(detector_with_handler.isSame(_origin, same1)).toBe(true);
+        expect(detector_with_handler.isSame(_origin.children.john, same1.children.john)).toBe(true);
+		expect(detector_with_handler.isSame(_origin, same2)).toBe(true);
+		expect(detector_with_handler.isSame(_origin.children.john, same2.children.john)).toBe(true);
         expect(detector_with_handler.isSame(_origin.children.john, _origin.children.tom)).toBe(false);
         expect(detector_with_handler.isSame(_origin.children.john.hobby[0], _origin.children.john.hobby[1])).toBe(false);
-        expect(detector_with_handler.isSame(_origin, difference)).toBe(true);
-        expect(detector_with_handler.isSame(_origin, number_difference)).toBe(true);
-        expect(detector_with_handler.isSame(_origin, string_difference)).toBe(true);
-        expect(detector_with_handler.isSame(_origin, boolean_difference)).toBe(true);
+        expect(detector_with_handler.isSame(_origin, same3)).toBe(true);
+        expect(detector_with_handler.isSame(_origin, same4)).toBe(true);
+        expect(detector_with_handler.isSame(_origin, same5)).toBe(true);
+        expect(detector_with_handler.isSame(_origin, same6)).toBe(true);
     });
 
     it('struct diff()', () => {
-        expect(detector_with_handler.isSame(_origin, structure_difference_1)).toBe(true);
-        expect(detector_with_handler.isSame(_origin, structure_difference_2)).toBe(true);
+        expect(detector_with_handler.isSame(_origin, same7)).toBe(true);
+        expect(detector_with_handler.isSame(_origin, same8)).toBe(true);
     });
 
     it('same val and struct', () => {
@@ -446,7 +491,6 @@ describe('structdiff(with handler)', () => {
     });
 
 });
-
 
 const input =  {
 		"_id":  "63c606cbedaaea9f17e8c27e",
@@ -2440,3 +2484,23 @@ describe('structdiff(BIG)', () => {
         expect(cjs_detector.isSame(input, output)).toBe(true);
     });
 });
+
+
+
+describe('debug', () => {
+
+	/*
+	comp_type:
+		0: default. 構造と値の「タイプ」の違いを検出します。
+		1: strict.  構造と値の違いを検出します。
+		2: loose.   構造の違いのみが検出されます。
+	*/
+
+	const detector = new StructDiff();
+
+	it('debug', () => {
+		expect(detector.isSame(_origin, diff1,2)).toBe(true);
+	});
+
+});
+
